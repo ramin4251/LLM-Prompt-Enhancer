@@ -21,7 +21,7 @@ function addEnhanceButton() {
             button.style.display = 'flex';
             button.style.justifyContent = 'center';
             button.style.alignItems = 'center';
-            button.textContent = 'Enhance Prompt';
+            button.textContent = '✨ Enhance Prompt';
 
             button.onclick = async () => {
                 const originalText = textarea.textContent || textarea.value; // Handle both textarea and contenteditable div
