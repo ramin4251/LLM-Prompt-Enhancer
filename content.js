@@ -1,17 +1,14 @@
 
-
 function addEnhanceButton() {
     let textareas;
 
-    // Check if we are on ChatGPT (you might need to refine this check if needed)
+    // Check if we are on ChatGPT
     if (window.location.hostname.includes('chatgpt') || window.location.hostname.includes('openai.com')) {
-        // Use the more specific selector for ChatGPT to avoid duplicate buttons (hopefully)
-        textareas = document.querySelectorAll('div._prosemirror-parent_1r7mb_1[contenteditable="true"]');
+        // Target the ChatGPT textarea
+        textareas = document.querySelectorAll('div[contenteditable="true"]');
     } else {
-        // Use the broader selector for other sites to ensure functionality
         textareas = document.querySelectorAll('textarea, div[contenteditable="true"]');
     }
-
 
     for (let textarea of textareas) {
         if (!textarea.dataset.enhanceButtonAdded) {
@@ -73,8 +70,10 @@ function addEnhanceButton() {
                 }
             };
 
+            // --- REVERTED to simple button placement AFTER textarea ---
             textarea.parentNode.insertBefore(button, textarea.nextSibling);
             textarea.dataset.enhanceButtonAdded = 'true';
+            // --- REMOVED all button container logic ---
         }
     }
 }
