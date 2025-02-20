@@ -27,14 +27,14 @@ function addEnhanceButton() {
                 const originalText = textarea.textContent || textarea.value; // Handle both textarea and contenteditable div
                 if (originalText.trim()) {
                     try {
-                        button.textContent = 'Enhancing...';
+                        button.textContent = '✨ Enhancing...';
                         button.disabled = true;
 
                         chrome.storage.local.get(['groqApiKey'], async function(result) {
                             const apiKey = result.groqApiKey;
                             if (!apiKey) {
                                 alert('Groq API Key is not set. Please open the extension popup and set your Groq API Key.');
-                                button.textContent = 'Enhance Prompt';
+                                button.textContent = '✨ Enhance Prompt';
                                 button.disabled = false;
                                 return;
                             }
@@ -60,7 +60,7 @@ function addEnhanceButton() {
                                 console.error('Error enhancing text:', error);
                                 alert('Failed to enhance prompt. Please try again.');
                             } finally {
-                                button.textContent = 'Enhance Prompt';
+                                button.textContent = '✨ Enhance Prompt';
                                 button.disabled = false;
                             }
                         });
