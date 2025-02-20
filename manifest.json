@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
-  "name": "Prompt Enhancer",
-  "version": "1.0",
-  "description": "Enhances message text using Groq AI",
+  "name": "Prompt Enhancer & RTL Fix",
+  "version": "1.1",
+  "description": "Enhances prompts using Groq AI and fixes RTL/LTR text direction on AI platforms",
   "permissions": [
     "activeTab",
     "scripting",
@@ -13,18 +13,27 @@
   ],
   "content_scripts": [
     {
-      "matches": ["<all_urls>"],
+      "matches": [
+        "https://chat.deepseek.com/*",
+        "https://chatgpt.com/*",
+        "https://aistudio.google.com/*",
+        "https://chat.qwenlm.ai/*",
+        "https://console.groq.com/*",
+        "https://bard.google.com/*",
+        "https://claude.ai/*"  
+      ],
       "js": ["content.js"],
-      "css": ["styles.css"]
+      "css": ["styles.css"],
+      "run_at": "document_end"
     }
   ],
   "action": {
     "default_popup": "popup.html"
   },
-	"icons": {
-		"16": "icon16.png",
-		"32": "icon32.png",
-		"48": "icon48.png",
-		"128": "icon128.png"
+  "icons": {
+    "16": "icon16.png",
+    "32": "icon32.png",
+    "48": "icon48.png",
+    "128": "icon128.png"
   }
 }

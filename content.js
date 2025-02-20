@@ -1,37 +1,26 @@
-function applyTextDirectionToPromptArea(el) {
-    const text = el.textContent.trim() || el.value?.trim() || ''; // Handle textarea and contenteditable divs and get value if textarea
-
-    if (!text) return;
-
-    if (/[\u0600-\u06FF]/.test(text)) {
-        el.setAttribute("dir", "rtl");
-        el.style.textAlign = "right";
-    } else if (/[A-Za-z]/.test(text)) {
-        el.setAttribute("dir", "ltr");
-        el.style.textAlign = "left";
-    } else {
-        // Default to LTR for other cases or when no specific characters are detected
-        el.setAttribute("dir", "ltr");
-        el.style.textAlign = "left";
-    }
-}
 
 
 function addEnhanceButton() {
-    // Modified selector to include contenteditable divs
-    const textareas = document.querySelectorAll('textarea, div[contenteditable="true"]');
+    let textareas;
+
+    // Check if we are on ChatGPT (you might need to refine this check if needed)
+    if (window.location.hostname.includes('chatgpt') || window.location.hostname.includes('openai.com')) {
+        // Use the more specific selector for ChatGPT to avoid duplicate buttons (hopefully)
+        textareas = document.querySelectorAll('div._prosemirror-parent_1r7mb_1[contenteditable="true"]');
+    } else {
+        // Use the broader selector for other sites to ensure functionality
+        textareas = document.querySelectorAll('textarea, div[contenteditable="true"]');
+    }
+
 
     for (let textarea of textareas) {
         if (!textarea.dataset.enhanceButtonAdded) {
             const button = document.createElement('button');
             button.className = 'enhance-button';
             button.style.margin = '5px';
-
-            // Add these lines to center the text
-            button.style.display = 'flex';        // Enable flexbox layout
-            button.style.justifyContent = 'center'; // Center horizontally
-            button.style.alignItems = 'center';     // Center vertically
-
+            button.style.display = 'flex';
+            button.style.justifyContent = 'center';
+            button.style.alignItems = 'center';
             button.textContent = 'Enhance Prompt';
 
             button.onclick = async () => {
@@ -58,13 +47,14 @@ function addEnhanceButton() {
                                     textarea.textContent = enhancedText;
                                 }
 
+
                                 // --- Dispatch an 'input' event ---
                                 textarea.dispatchEvent(new InputEvent('input', {
                                     bubbles: true,
                                     cancelable: true,
                                 }));
                                 // ----------------------------------
-                                applyTextDirectionToPromptArea(textarea); // Apply text direction after setting text
+
 
                             } catch (error) {
                                 console.error('Error enhancing text:', error);
@@ -85,7 +75,6 @@ function addEnhanceButton() {
 
             textarea.parentNode.insertBefore(button, textarea.nextSibling);
             textarea.dataset.enhanceButtonAdded = 'true';
-            applyTextDirectionToPromptArea(textarea); // Apply text direction initially
         }
     }
 }
@@ -102,11 +91,11 @@ async function enhanceText(text, apiKey) {
             messages: [
                 {
                     role: 'system',
-                    content: 'You are an expert prompt engineer. Your goal is to improve user-provided text to be a highly effective prompt for a chat-based LLM. Focus on clarity, conciseness, and actionable instructions. Return ONLY the enhanced prompt, structured for optimal LLM understanding. No extra commentary or explanations.'
+                    content: 'You are an expert prompt engineer. Your goal is to improve user-provided text to be a highly effective prompt for a chat-based LLM. Focus on clarity, conciseness, and actionable instructions. **Ensure that the enhanced prompt is in the same language as the original input text.** Return ONLY the enhanced prompt, structured for optimal LLM understanding. No extra commentary or explanations.'
                 },
                 {
                     role: 'user',
-                    content: `Please enhance the following text into a structured and effective prompt for a Large Language Model.
+                    content: `Please enhance the following text into a structured and effective prompt for a Large Language Model. **The enhanced prompt should be in the same language as the original text.**
 
                     **Original Text:**
                     "${text}"
@@ -137,6 +126,7 @@ async function enhanceText(text, apiKey) {
                     2. Explain key concepts like superposition and entanglement.
                     3. Use analogies and examples to make it understandable for someone with no prior knowledge.
                     4. Keep the explanation concise and avoid overly technical jargon.
+					5. Translate your answer to the same Language that original text is.
 
                     --- Context (Original Text) ---
                     Explain quantum physics
@@ -159,7 +149,51 @@ async function enhanceText(text, apiKey) {
     return data.choices[0].message.content.trim();
 }
 
+
+function applyTextDirection(el) {
+  // Skip anchor tags (<a>) to avoid interfering with links
+  if (el.closest("nav")) return;
+
+  const text = el.textContent.trim();
+
+  if (!text) return;
+
+  if (/[\u0600-\u06FF]/.test(text)) {
+    el.setAttribute("dir", "rtl");
+    el.style.textAlign = "right";
+  } else if (/[A-Za-z]/.test(text)) {
+    el.setAttribute("dir", "ltr");
+    el.style.textAlign = "left";
+  }
+}
+
+function processAllElements() {
+  document.querySelectorAll("*").forEach(applyTextDirection);
+}
+
+
 // Run on page load and watch for dynamic content
-addEnhanceButton();
-const observer = new MutationObserver(addEnhanceButton);
+
+const observer = new MutationObserver((mutationsList, observer) => { // Combined callback function
+
+  // Functionality of the first observer (addEnhanceButton)
+  addEnhanceButton(mutationsList, observer); // Pass mutationsList and observer if addEnhanceButton needs them
+
+
+  // Functionality of the second observer (applyTextDirection to added nodes)
+  mutationsList.forEach((mutation) => {
+    mutation.addedNodes.forEach((node) => {
+      if (node.nodeType === 1) { // Check if it's an Element node
+        if (!node.closest("nav")) {
+          applyTextDirection(node);
+          node.querySelectorAll("*").forEach(applyTextDirection);
+        }
+      }
+    });
+  });
+
+});
+
 observer.observe(document.body, { childList: true, subtree: true });
+addEnhanceButton();
+processAllElements();
