@@ -16,6 +16,7 @@ The **Prompt Enhancer** is a Chrome extension designed to improve the quality of
 
 The extension files are organized as follows:
 
+```
 Prompt-Enhancer/
 ├── manifest.json # Extension manifest file defining metadata, permissions, etc.
 ├── content.js # Content script to inject button and handle prompt enhancement logic.
@@ -26,7 +27,7 @@ Prompt-Enhancer/
 ├── icon32.png # Extension icon (32x32 pixels)
 ├── icon48.png # Extension icon (48x48 pixels)
 └── icon128.png # Extension icon (128x128 pixels)
-
+```
 
 **File Descriptions:**
 
