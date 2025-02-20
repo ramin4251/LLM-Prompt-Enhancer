@@ -1,5 +1,6 @@
 function addEnhanceButton() {
-    const textareas = document.getElementsByTagName('textarea');
+    // Modified selector to include contenteditable divs
+    const textareas = document.querySelectorAll('textarea, div[contenteditable="true"]');
 
     for (let textarea of textareas) {
         if (!textarea.dataset.enhanceButtonAdded) {
@@ -9,7 +10,7 @@ function addEnhanceButton() {
             button.textContent = 'Enhance Prompt';
 
             button.onclick = async () => {
-                const originalText = textarea.value;
+                const originalText = textarea.textContent || textarea.value; // Handle both textarea and contenteditable div
                 if (originalText.trim()) {
                     try {
                         button.textContent = 'Enhancing...';
@@ -25,7 +26,12 @@ function addEnhanceButton() {
                             }
                             try {
                                 const enhancedText = await enhanceText(originalText, apiKey);
-                                textarea.value = enhancedText;
+                                // Handle setting value for both textarea and contenteditable div
+                                if (textarea.tagName === 'TEXTAREA') {
+                                    textarea.value = enhancedText;
+                                } else {
+                                    textarea.textContent = enhancedText;
+                                }
 
                                 // --- Dispatch an 'input' event ---
                                 textarea.dispatchEvent(new InputEvent('input', {
