@@ -1,3 +1,22 @@
+function applyTextDirectionToPromptArea(el) {
+    const text = el.textContent.trim() || el.value?.trim() || ''; // Handle textarea and contenteditable divs and get value if textarea
+
+    if (!text) return;
+
+    if (/[\u0600-\u06FF]/.test(text)) {
+        el.setAttribute("dir", "rtl");
+        el.style.textAlign = "right";
+    } else if (/[A-Za-z]/.test(text)) {
+        el.setAttribute("dir", "ltr");
+        el.style.textAlign = "left";
+    } else {
+        // Default to LTR for other cases or when no specific characters are detected
+        el.setAttribute("dir", "ltr");
+        el.style.textAlign = "left";
+    }
+}
+
+
 function addEnhanceButton() {
     // Modified selector to include contenteditable divs
     const textareas = document.querySelectorAll('textarea, div[contenteditable="true"]');
@@ -45,7 +64,7 @@ function addEnhanceButton() {
                                     cancelable: true,
                                 }));
                                 // ----------------------------------
-
+                                applyTextDirectionToPromptArea(textarea); // Apply text direction after setting text
 
                             } catch (error) {
                                 console.error('Error enhancing text:', error);
@@ -66,6 +85,7 @@ function addEnhanceButton() {
 
             textarea.parentNode.insertBefore(button, textarea.nextSibling);
             textarea.dataset.enhanceButtonAdded = 'true';
+            applyTextDirectionToPromptArea(textarea); // Apply text direction initially
         }
     }
 }
