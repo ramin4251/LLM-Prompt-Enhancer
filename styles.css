@@ -1,0 +1,28 @@
+.enhance-button {
+    background-color: transparent; /* Transparent background */
+    border: 1px solid #d1d1d5; /* Light gray border */
+    color: #fff; /* White text color - CHANGED */
+    padding: 5px 16px; /* Padding */
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 0.8em; /* Font size */
+    border-radius: 20px; /* Rounded corners */
+    cursor: pointer;
+    transition: background-color 0.15s ease-in-out, border-color 0.15s ease-in-out; /* Subtle transition */
+    font-weight: normal; /* Make text NOT bold - CHANGED */
+    font-family: sans-serif; /* Changed to match image font */
+}
+
+.enhance-button:hover {
+    background-color: rgba(255, 255, 255, 0.08); /* Subtle white overlay on hover */
+    border-color: #c0c0c4; /* Slightly darker border on hover */
+}
+
+.enhance-button:disabled {
+    background-color: transparent; /* Keep transparent when disabled */
+    border-color: #d1d1d5; /* Keep border consistent */
+    color: #888; /* Medium gray for disabled text */
+    cursor: not-allowed;
+    opacity: 0.7; /* Slightly reduce opacity when disabled */
+}
