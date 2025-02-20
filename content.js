@@ -7,6 +7,12 @@ function addEnhanceButton() {
             const button = document.createElement('button');
             button.className = 'enhance-button';
             button.style.margin = '5px';
+
+            // Add these lines to center the text
+            button.style.display = 'flex';        // Enable flexbox layout
+            button.style.justifyContent = 'center'; // Center horizontally
+            button.style.alignItems = 'center';     // Center vertically
+
             button.textContent = 'Enhance Prompt';
 
             button.onclick = async () => {
