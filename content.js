@@ -86,53 +86,27 @@ async function enhanceText(text, apiKey) {
             'Authorization': `Bearer ${apiKey}`
         },
         body: JSON.stringify({
-            model: 'mixtral-8x7b-32768',
+            model: 'gemma2-9b-it',
             messages: [
                 {
                     role: 'system',
-                    content: 'You are an expert prompt engineer. Your goal is to improve user-provided text to be a highly effective prompt for a chat-based LLM. Focus on clarity, conciseness, and actionable instructions. **Ensure that the enhanced prompt is in the same language as the original input text.** Return ONLY the enhanced prompt, structured for optimal LLM understanding. No extra commentary or explanations.'
+                    content: 'You are an expert at turning short, informal user requests into clear, detailed, and effective prompts for a chat-based Large Language Model (LLM). Your goal is to rephrase the user text into a prompt that is ready to be pasted directly into a chat LLM to get a helpful and actionable answer. Focus on adding details, context, and specific instructions to make the prompt as effective as possible for getting a useful response from the LLM.  **CRITICAL: You MUST ensure that the rephrased prompt is in the SAME LANGUAGE as the ORIGINAL USER INPUT TEXT.  This language preservation is paramount. The rephrased prompt itself MUST be in the same language as the original input text.** Return ONLY the rephrased prompt. No extra commentary or explanations.'
                 },
                 {
                     role: 'user',
-                    content: `Please enhance the following text into a structured and effective prompt for a Large Language Model. **The enhanced prompt should be in the same language as the original text.** 
+                    content: `Please rephrase the following short user text into a detailed and effective prompt for a Large Language Model.  
+					The goal is to make the prompt as clear and actionable as possible so that a user can paste it directly into a chat LLM and get a helpful answer to their question or problem. 
+					The rephrased prompt should be in the same language as the original text and should be significantly more detailed and user-ready than the original.
 
-                    **Original Text:**
+                    **Original User Text:**
                     "${text}"
 
-                    **Enhanced Prompt Structure (Use these sections):**
+                    **Example of Rephrasing (for input: 'fix my blurry photo'):**
 
-                    --- Task ---
-                    [Clearly define the task using action verbs]
-
-                    --- Instructions ---
-                    [Provide concise, numbered instructions for the LLM to follow. Be direct and use imperative language. Focus on how to process the original text and what kind of output is expected.  For example:
-                    1. Perform grammer check and improve the user's original text to have fluent and professional tone. 
-					2. Analyze the Original Text to understand the user's intent. 
-                    3. Based on the intent, formulate a clear and concise Task statement.
-                    4. Provide specific, step-by-step instructions to guide the LLM.
-                    5. Specify the desired output format if necessary.]
-
-                    --- Context (Original Text) ---
-                    [Include the improved original text here for the LLM's reference.]
+                    "I have a photo that is blurry. What are some common reasons why photos become blurry?  And what are the best ways to try and fix a blurry photo? Please provide step-by-step instructions and suggest both software and online tools I could use.  Also, are there any limitations to fixing blurry photos?  For example, are some types of blurriness impossible to correct? **Respond in the same language as the original user request.**"
 
 
-                    **Example Enhanced Prompt (for input: 'Explain quantum physics'):**
-
-                    --- Task ---
-                    Explain the basics of quantum physics.
-
-                    --- Instructions ---
-                    1. Start with a simple definition of quantum physics.
-                    2. Explain key concepts like superposition and entanglement.
-                    3. Use analogies and examples to make it understandable for someone with no prior knowledge.
-                    4. Keep the explanation concise and avoid overly technical jargon.
-					5. Translate your answer to the same Language that original text is.
-
-                    --- Context (Original Text) ---
-                    Explain quantum physics
-
-
-                    Now, enhance the prompt for the following Original Text.  Remember to ONLY return the enhanced prompt structured as shown above.  Do not include any extra text or explanations.
+                    Now, rephrase the following Original User Text into a detailed and user-ready prompt that can be directly used in a chat LLM.  Remember to ONLY return the rephrased prompt, ready to be used. Do not include any extra text or explanations. Just provide the rephrased prompt itself.
                     `
                 }
             ],
