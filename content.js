@@ -94,7 +94,7 @@ async function enhanceText(text, apiKey) {
                 },
                 {
                     role: 'user',
-                    content: `Please enhance the following text into a structured and effective prompt for a Large Language Model. **The enhanced prompt should be in the same language as the original text.** Perform grammer check, correct and improve writing style of the user text.
+                    content: `Please enhance the following text into a structured and effective prompt for a Large Language Model. **The enhanced prompt should be in the same language as the original text.** 
 
                     **Original Text:**
                     "${text}"
@@ -106,13 +106,14 @@ async function enhanceText(text, apiKey) {
 
                     --- Instructions ---
                     [Provide concise, numbered instructions for the LLM to follow. Be direct and use imperative language. Focus on how to process the original text and what kind of output is expected.  For example:
-                    1. Analyze the Original Text to understand the user's intent.
-                    2. Based on the intent, formulate a clear and concise Task statement.
-                    3. Provide specific, step-by-step instructions to guide the LLM.
-                    4. Specify the desired output format if necessary.]
+                    1. Perform grammer check and improve the user's original text to have fluent and professional tone. 
+					2. Analyze the Original Text to understand the user's intent. 
+                    3. Based on the intent, formulate a clear and concise Task statement.
+                    4. Provide specific, step-by-step instructions to guide the LLM.
+                    5. Specify the desired output format if necessary.]
 
                     --- Context (Original Text) ---
-                    [Include the original text here for the LLM's reference.]
+                    [Include the improved original text here for the LLM's reference.]
 
 
                     **Example Enhanced Prompt (for input: 'Explain quantum physics'):**
