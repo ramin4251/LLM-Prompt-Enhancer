@@ -94,7 +94,7 @@ async function enhanceText(text, apiKey) {
                 },
                 {
                     role: 'user',
-                    content: `Please enhance the following text into a structured and effective prompt for a Large Language Model. **The enhanced prompt should be in the same language as the original text.** Do grammer check and correct the user text.
+                    content: `Please enhance the following text into a structured and effective prompt for a Large Language Model. **The enhanced prompt should be in the same language as the original text.** Perform grammer check, correct and improve writing style of the user text.
 
                     **Original Text:**
                     "${text}"
