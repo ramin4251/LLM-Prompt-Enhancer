@@ -135,6 +135,7 @@ function applyTextDirection(el) {
   if (/[\u0600-\u06FF]/.test(text)) {
     el.setAttribute("dir", "rtl");
     el.style.textAlign = "right";
+	el.style.fontFamily = 'Vazirmatn, sans-serif';
   } else if (/[A-Za-z]/.test(text)) {
     el.setAttribute("dir", "ltr");
     el.style.textAlign = "left";
