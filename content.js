@@ -1,4 +1,3 @@
-
 function addEnhanceButton() {
     let textareas;
 
@@ -19,6 +18,25 @@ function addEnhanceButton() {
             button.style.justifyContent = 'center';
             button.style.alignItems = 'center';
             button.textContent = '✨ Enhance Prompt';
+
+            textarea.addEventListener('input', function(event) {
+                const text = textarea.textContent || textarea.value;
+                if (text) {
+                    const firstChar = text.charAt(0);
+                    if (/[\u0600-\u06FF]/.test(firstChar)) {
+                        textarea.setAttribute("dir", "rtl");
+                        textarea.style.textAlign = "right";
+                        textarea.style.fontFamily = 'Vazirmatn, sans-serif';
+                    } else if (/[A-Za-z]/.test(firstChar)) {
+                        textarea.setAttribute("dir", "ltr");
+                        textarea.style.textAlign = "left";
+                        textarea.style.fontFamily = ''; // Reset font if needed
+                    }
+                } else {
+                    textarea.setAttribute("dir", "ltr"); // Default to LTR when empty
+                    textarea.style.textAlign = "left";
+                }
+            });
 
             button.onclick = async () => {
                 const originalText = textarea.textContent || textarea.value; // Handle both textarea and contenteditable div
@@ -59,7 +77,7 @@ function addEnhanceButton() {
                             } finally {
                                 button.textContent = '✨ Enhance Prompt';
                                 button.disabled = false;
-                            }
+                             }
                         });
 
                     } catch (error) {
@@ -91,11 +109,11 @@ async function enhanceText(text, apiKey) {
                 {
                     role: 'system',
                     content: 'You are an expert at turning short, informal user requests into clear, detailed, and effective prompts for a chat-based Large Language Model (LLM). Your goal is to rephrase the user text into a prompt that is ready to be pasted directly into a chat LLM to get a helpful and actionable answer. Focus on adding details, context, and specific instructions to make the prompt as effective as possible for getting a useful response from the LLM.  **CRITICAL: You MUST ensure that the rephrased prompt is in the SAME LANGUAGE as the ORIGINAL USER INPUT TEXT.  This language preservation is paramount. The rephrased prompt itself MUST be in the same language as the original input text.** Return ONLY the rephrased prompt. No extra commentary or explanations.'
-                },
+                 },
                 {
                     role: 'user',
-                    content: `Please rephrase the following short user text into a detailed and effective prompt for a Large Language Model.  
-					The goal is to make the prompt as clear and actionable as possible so that a user can paste it directly into a chat LLM and get a helpful answer to their question or problem. 
+                    content: `Please rephrase the following short user text into a detailed and effective prompt for a Large Language Model.
+					The goal is to make the prompt as clear and actionable as possible so that a user can paste it directly into a chat LLM and get a helpful answer to their question or problem.
 					The rephrased prompt should be in the same language as the original text and should be significantly more detailed and user-ready than the original.
 
                     **Original User Text:**
