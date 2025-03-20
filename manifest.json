@@ -17,7 +17,7 @@
         "https://chat.deepseek.com/*",
         "https://chatgpt.com/*",
         "https://aistudio.google.com/*",
-        "https://chat.qwenlm.ai/*",
+        "https://chat.qwen.ai/*",
         "https://console.groq.com/*",
         "https://bard.google.com/*",
         "https://claude.ai/*"  
