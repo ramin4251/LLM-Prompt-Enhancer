@@ -20,7 +20,8 @@
         "https://chat.qwen.ai/*",
         "https://console.groq.com/*",
         "https://bard.google.com/*",
-        "https://claude.ai/*"  
+        "https://claude.ai/*",
+		"https://www.perplexity.ai/*"
       ],
       "js": ["content.js"],
       "css": ["styles.css"],
