@@ -21,7 +21,8 @@
         "https://console.groq.com/*",
         "https://bard.google.com/*",
         "https://claude.ai/*",
-	"https://www.perplexity.ai/*"
+	"https://www.perplexity.ai/*",
+	"https://copilot.microsoft.com/*"
       ],
       "js": ["content.js"],
       "css": ["styles.css"],
