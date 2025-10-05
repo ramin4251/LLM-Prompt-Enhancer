@@ -1,20 +1,58 @@
-<!DOCTYPE html>
-<html>
-<head>
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- Opt into both light/dark to avoid flashes -->
+    <meta name="color-scheme" content="dark light" />
     <title>Groq API Key</title>
-    <style>
-        body { font-family: sans-serif; width: 300px; padding: 15px; }
-        input[type="text"] { width: 100%; padding: 8px; margin-bottom: 10px; box-sizing: border-box; }
-        button { padding: 8px 15px; background-color: #4CAF50; color: white; border: none; cursor: pointer; }
-        button:hover { background-color: #45a049; }
-        #status { margin-top: 10px; font-size: small; }
-    </style>
-</head>
-<body>
-    <h2>Groq API Key</h2>
-    <input type="text" id="apiKey" placeholder="Enter your Groq API key">
-    <button id="save">Save API Key</button>
-    <div id="status"></div>
+    <link rel="stylesheet" href="popup.css" />
+  </head>
+  <body>
+    <main class="card" role="region" aria-label="Groq API settings">
+      <header class="card__header">
+        <div class="brand">
+          <span class="brand__logo" aria-hidden="true">🧠</span>
+          <h1 class="brand__title">Groq API Key</h1>
+        </div>
+        <p class="subtitle">Store a valid gsk_ key locally for the enhancer. </p>
+      </header>
+
+      <form id="apiForm" class="form" autocomplete="off">
+        <label for="apiKey" class="label">API key</label>
+        <div class="field">
+          <input
+            id="apiKey"
+            name="apiKey"
+            class="input"
+            type="password"
+            inputmode="text"
+            spellcheck="false"
+            placeholder="gsk_••••••••••••••••••••"
+            aria-describedby="keyHelp"
+            required
+            minlength="20"
+            pattern="^gsk_[A-Za-z0-9-_]{16,}$"
+          />
+          <button type="button" class="icon-btn" id="toggleVis" aria-label="Show or hide API key">👁️</button>
+          <button type="button" class="icon-btn" id="copyKey" aria-label="Copy API key">📋</button>
+        </div>
+        <small id="keyHelp" class="hint">Starts with gsk_, then letters/numbers. </small>
+
+        <div class="actions">
+          <button id="save" class="btn primary" type="submit">Save</button>
+          <button id="clear" class="btn ghost" type="button">Clear</button>
+        </div>
+      </form>
+
+      <footer class="footer">
+        <span class="muted">Saved only in local storage. </span>
+      </footer>
+    </main>
+
+    <!-- Toast container -->
+    <div id="toast" class="toast" role="status" aria-live="polite" aria-atomic="true"></div>
+
     <script src="popup.js"></script>
-</body>
+  </body>
 </html>

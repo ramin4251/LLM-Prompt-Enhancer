@@ -1,20 +1,69 @@
-document.addEventListener('DOMContentLoaded', function() {
-    const apiKeyInput = document.getElementById('apiKey');
-    const saveButton = document.getElementById('save');
-    const statusDiv = document.getElementById('status');
+document.addEventListener('DOMContentLoaded', () => {
+  const $ = (s) => document.querySelector(s);
+  const input = $('#apiKey');
+  const saveBtn = $('#save');
+  const clearBtn = $('#clear');
+  const toggleBtn = $('#toggleVis');
+  const copyBtn = $('#copyKey');
+  const toast = $('#toast');
 
-    // بارگیری کلید API ذخیره شده هنگام باز شدن popup
-    chrome.storage.local.get(['groqApiKey'], function(result) {
-        apiKeyInput.value = result.groqApiKey || ''; // اگر کلیدی وجود نداشت، فیلد را خالی بگذار
-    });
+  // Load saved key
+  chrome.storage.local.get(['groqApiKey'], (res) => {
+    if (res.groqApiKey) input.value = res.groqApiKey;
+    setDirty(false);
+  });
 
-    saveButton.addEventListener('click', function() {
-        const apiKey = apiKeyInput.value;
-        chrome.storage.local.set({groqApiKey: apiKey}, function() {
-            statusDiv.textContent = 'API Key saved.';
-            setTimeout(function() {
-                statusDiv.textContent = ''; // پاک کردن پیام بعد از چند ثانیه
-            }, 2000);
-        });
+  // Basic format check: starts with gsk_
+  function validKey(v) {
+    return /^gsk_[A-Za-z0-9-_]{16,}$/.test((v || '').trim());
+  }
+
+  function setDirty(state) {
+    saveBtn.disabled = !state || !validKey(input.value);
+  }
+
+  input.addEventListener('input', () => setDirty(true));
+
+  // Save
+  document.getElementById('apiForm').addEventListener('submit', (e) => {
+    e.preventDefault();
+    const v = input.value.trim();
+    if (!validKey(v)) return toastMsg('Enter a valid Groq key (starts with gsk_).');
+    chrome.storage.local.set({ groqApiKey: v }, () => {
+      toastMsg('API key saved.');
+      setDirty(false);
     });
+  });
+
+  // Clear stored key
+  clearBtn.addEventListener('click', () => {
+    input.value = '';
+    chrome.storage.local.remove(['groqApiKey'], () => toastMsg('Key cleared.'));
+    setDirty(false);
+  });
+
+  // Show/Hide
+  toggleBtn.addEventListener('click', () => {
+    input.type = input.type === 'password' ? 'text' : 'password';
+    toggleBtn.classList.toggle('on');
+  });
+
+  // Copy to clipboard
+  copyBtn.addEventListener('click', async () => {
+    try {
+      await navigator.clipboard.writeText(input.value || '');
+      toastMsg('Copied to clipboard.');
+    } catch {
+      toastMsg('Copy failed.');
+    }
+  });
+
+  // Tiny toast helper
+  let t;
+  function toastMsg(msg) {
+    toast.textContent = msg;
+    toast.classList.add('show');
+    clearTimeout(t);
+    t = setTimeout(() => toast.classList.remove('show'), 1600);
+  }
 });
