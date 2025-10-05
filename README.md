@@ -12,31 +12,10 @@ The **Prompt Enhancer** is a Chrome extension designed to improve the quality of
 * **User-Friendly:** Simple popup interface to set and save your Groq API key.
 * **Real-time Feedback:** Provides "Enhancing..." status while processing and displays alerts for API key issues or errors.
 
-## Repository Structure
+## Updated popup look
 
-The extension files are organized as follows:
-
-```
-Prompt-Enhancer/
-├── manifest.json # Extension manifest file defining metadata, permissions, etc.
-├── content.js # Content script to inject button and handle prompt enhancement logic.
-├── popup.html # HTML for the extension popup to set the API key.
-├── popup.js # JavaScript for the popup to handle API key saving and loading.
-├── styles.css # CSS for styling the "Enhance Prompt" button.
-├── icon16.png # Extension icon (16x16 pixels)
-├── icon32.png # Extension icon (32x32 pixels)
-├── icon48.png # Extension icon (48x48 pixels)
-└── icon128.png # Extension icon (128x128 pixels)
-```
-
-**File Descriptions:**
-
-* **`manifest.json`**:  Declares the extension's name, version, description, permissions, content scripts, popup, and icons. It's the blueprint of the Chrome extension.
-* **`content.js`**:  The core logic of the extension. It injects the "Enhance Prompt" button into web pages, captures textarea input, sends it to the Groq API for enhancement, and updates the textarea with the enhanced prompt.
-* **`popup.html`**: Defines the user interface of the extension popup, which includes an input field for the Groq API key and a save button.
-* **`popup.js`**: Handles the JavaScript logic for the popup, specifically saving and retrieving the Groq API key from the browser's local storage.
-* **`styles.css`**: Provides styling for the "Enhance Prompt" button to ensure it integrates well with various website designs.
-* **`icon*.png`**:  Icon files in different sizes used to represent the extension in the Chrome browser.
+* **The popup presents a compact Groq API Key screen with a title, a single key field, and clear primary actions for saving the key.
+* **The popup loads any previously saved key on open and provides a brief saved status message after storing changes.
 
 ## Installation
 
