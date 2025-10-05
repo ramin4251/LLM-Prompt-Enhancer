@@ -16,6 +16,8 @@ The **Prompt Enhancer** is a Chrome extension designed to improve the quality of
 
 * The popup presents a compact Groq API Key screen with a title, a single key field, and clear primary actions for saving the key.
 * The popup loads any previously saved key on open and provides a brief saved status message after storing changes.
+  <img width="365" height="298" alt="PopupScreenSample" src="https://github.com/user-attachments/assets/d6e54a92-2b3b-4de5-b1bd-0f61ffc53e46" />
+
 
 ## Installation
 
