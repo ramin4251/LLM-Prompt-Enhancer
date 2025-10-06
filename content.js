@@ -104,7 +104,7 @@ async function enhanceText(text, apiKey) {
             'Authorization': `Bearer ${apiKey}`
         },
         body: JSON.stringify({
-            model: 'gemma2-9b-it',
+            model: 'meta-llama/llama-4-scout-17b-16e-instruct',
             messages: [
                 {
                     role: 'system',
