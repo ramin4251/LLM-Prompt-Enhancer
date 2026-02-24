@@ -1,36 +1,29 @@
 {
   "manifest_version": 3,
   "name": "Prompt Enhancer & RTL Fix",
-  "version": "1.1",
+  "version": "2.6",
   "description": "Enhances prompts using Groq AI and fixes RTL/LTR text direction on AI platforms",
-  "permissions": [
-    "activeTab",
-    "scripting",
-    "storage"
-  ],
-  "host_permissions": [
-    "https://api.groq.com/*"
-  ],
+  "permissions": ["activeTab", "scripting", "storage"],
+  "host_permissions": ["https://api.groq.com/*"],
+  "background": { "service_worker": "background.js" },
   "content_scripts": [
     {
       "matches": [
-        "https://chat.deepseek.com/*",
-        "https://chatgpt.com/*",
-        "https://aistudio.google.com/*",
-        "https://chat.qwen.ai/*",
-        "https://console.groq.com/*",
-        "https://bard.google.com/*",
-        "https://claude.ai/*",
-	"https://www.perplexity.ai/*",
-	"https://copilot.microsoft.com/*"
+        "https://chat.deepseek.com/*", "https://chatgpt.com/*", "https://aistudio.google.com/*",
+        "https://chat.qwen.ai/*", "https://console.groq.com/*", "https://bard.google.com/*",
+        "https://gemini.google.com/*", "https://claude.ai/*", "https://www.perplexity.ai/*",
+        "https://copilot.microsoft.com/*", "https://chat.mistral.ai/*", "https://huggingface.co/chat/*",
+        "https://grok.com/*", "https://coral.cohere.com/*"
       ],
-      "js": ["content.js"],
-      "css": ["styles.css"],
-      "run_at": "document_end"
+      "js": ["content.js"], "css": ["styles.css"], "run_at": "document_end"
     }
   ],
-  "action": {
-    "default_popup": "popup.html"
+  "action": { "default_popup": "popup.html" },
+  "commands": {
+    "enhance-prompt": {
+      "suggested_key": { "default": "Ctrl+Shift+E", "mac": "Command+Shift+E" },
+      "description": "Enhance current prompt"
+    }
   },
   "icons": {
     "16": "icon16.png",

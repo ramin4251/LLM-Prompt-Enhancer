@@ -1,5 +1,5 @@
 :root {
-  color-scheme: light dark;           /* respect OS theme */
+  color-scheme: light dark;
   --bg: rgba(28,29,33,0.65);
   --bg-light: rgba(255,255,255,0.55);
   --card: light-dark(var(--bg-light), var(--bg));
@@ -17,7 +17,7 @@ html, body {
   margin: 0;
   font: 14px/1.35 ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Vazirmatn, sans-serif;
   background: transparent;
-  min-width: 320px;             /* compact but comfortable */
+  min-width: 320px;
 }
 
 .card {
@@ -28,17 +28,15 @@ html, body {
   border-radius: var(--radius);
   box-shadow: var(--shadow);
   border: 1px solid rgba(255,255,255,0.18);
-  backdrop-filter: blur(12px) saturate(140%); /* frosted glass */
+  backdrop-filter: blur(12px) saturate(140%);
   -webkit-backdrop-filter: blur(12px) saturate(140%);
 }
 
 .card__header { margin-bottom: 12px; }
-
 .brand { display: flex; align-items: center; gap: 8px; }
 .brand__logo { font-size: 20px; }
 .brand__title { font-size: 16px; margin: 0; }
 .subtitle { margin: 2px 0 0; color: var(--muted); }
-
 .label { display: block; margin: 10px 0 6px; font-weight: 600; }
 
 .field {
@@ -46,6 +44,11 @@ html, body {
   grid-template-columns: 1fr auto auto;
   gap: 6px;
   align-items: center;
+}
+
+.field-full {
+  display: flex;
+  width: 100%;
 }
 
 .input {
@@ -57,6 +60,8 @@ html, body {
   color: var(--text);
   outline: none;
   transition: border-color .15s ease, box-shadow .15s ease, transform .06s ease;
+  font-family: inherit; 
+  box-sizing: border-box; 
 }
 
 .input:focus { border-color: var(--primary); box-shadow: var(--ring); }
@@ -69,7 +74,12 @@ html, body {
   background: light-dark(#f9fafb,#1b1f24);
   cursor: pointer;
   transition: transform .06s ease, background-color .15s ease, border-color .15s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
 }
+
 .icon-btn:hover { transform: translateY(-1px); }
 
 .actions { display: flex; gap: 8px; margin-top: 12px; }
@@ -81,6 +91,7 @@ html, body {
   border: 1px solid transparent;
   cursor: pointer;
   transition: transform .06s ease, box-shadow .15s ease, background-color .15s ease;
+  font-weight: 600;
 }
 
 .btn.primary { background: var(--primary); color: var(--primary-ink); }
@@ -94,7 +105,6 @@ html, body {
 .btn.ghost:hover { background: light-dark(#f3f4f6,#1b1f24); }
 
 .hint { color: var(--muted); }
-
 .footer { margin-top: 12px; }
 .muted { color: var(--muted); }
 
@@ -111,5 +121,7 @@ html, body {
   opacity: 0;
   pointer-events: none;
   transition: transform .18s ease, opacity .18s ease;
+  text-align: center;
+  z-index: 100;
 }
 .toast.show { transform: translateY(0); opacity: 1; }

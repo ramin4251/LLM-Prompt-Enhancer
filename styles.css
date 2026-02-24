@@ -1,30 +1,78 @@
 @import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@100..900&display=swap');
 
+.enhancer-btn-container {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 8px 0;
+    flex-wrap: wrap;
+    position: relative;
+    z-index: 99999; 
+}
+
 .enhance-button {
-    background-color: transparent; /* Transparent background */
-    border: 1px solid #d1d1d5; /* Light gray border */
-    color: #fff; /* White text color - CHANGED */
-    padding: 5px 16px; /* Padding */
+    background-color: var(--enhancer-bg, #2a2b32);
+    color: var(--enhancer-text, #ffffff);
+    border: 1px solid var(--enhancer-border, #4b5563);
+    padding: 6px 14px;
     text-align: center;
     text-decoration: none;
     display: inline-block;
-    font-size: 0.8em; /* Font size */
-    border-radius: 20px; /* Rounded corners */
+    font-size: 0.85em;
+    border-radius: 16px;
     cursor: pointer;
-    transition: background-color 0.15s ease-in-out, border-color 0.15s ease-in-out; /* Subtle transition */
-    font-weight: normal; /* Make text NOT bold - CHANGED */
-    font-family: sans-serif; /* Changed to match image font */
+    transition: all 0.2s ease-in-out;
+    font-weight: 500;
+    font-family: system-ui, -apple-system, sans-serif;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+    position: relative; 
+    z-index: 99999;
+    height: 32px; 
+    line-height: normal;
 }
 
-.enhance-button:hover {
-    background-color: rgba(255, 255, 255, 0.08); /* Subtle white overlay on hover */
-    border-color: #c0c0c4; /* Slightly darker border on hover */
+.enhance-button:hover:not(:disabled) {
+    background-color: var(--enhancer-hover, #3f4148);
 }
 
 .enhance-button:disabled {
-    background-color: transparent; /* Keep transparent when disabled */
-    border-color: #d1d1d5; /* Keep border consistent */
-    color: #888; /* Medium gray for disabled text */
+    opacity: 0.6;
     cursor: not-allowed;
-    opacity: 0.7; /* Slightly reduce opacity when disabled */
+}
+
+.revert-button {
+    background-color: transparent;
+    border-color: #ef4444;
+    color: #ef4444;
+}
+
+.revert-button:hover:not(:disabled) {
+    background-color: rgba(239, 68, 68, 0.1);
+}
+
+.enhancer-inline-toast {
+    font-size: 0.8em;
+    font-family: system-ui, -apple-system, sans-serif;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    white-space: nowrap;
+    z-index: 99999;
+}
+
+@media (prefers-color-scheme: light) {
+    :root {
+        --enhancer-bg: #f9fafb;
+        --enhancer-text: #111827;
+        --enhancer-border: #d1d5db;
+        --enhancer-hover: #e5e7eb;
+    }
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --enhancer-bg: #1f2937;
+        --enhancer-text: #f9fafb;
+        --enhancer-border: #4b5563;
+        --enhancer-hover: #374151;
+    }
 }

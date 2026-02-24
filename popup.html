@@ -1,58 +1,50 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <!-- Opt into both light/dark to avoid flashes -->
-    <meta name="color-scheme" content="dark light" />
-    <title>Groq API Key</title>
-    <link rel="stylesheet" href="popup.css" />
-  </head>
-  <body>
-    <main class="card" role="region" aria-label="Groq API settings">
-      <header class="card__header">
-        <div class="brand">
-          <span class="brand__logo" aria-hidden="true">🧠</span>
-          <h1 class="brand__title">Groq API Key</h1>
-        </div>
-        <p class="subtitle">Store a valid gsk_ key locally for the enhancer. </p>
-      </header>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Prompt Enhancer Settings</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div class="card">
+    <div class="card__header">
+      <div class="brand">
+        <span class="brand__logo">✨</span>
+        <h2 class="brand__title">Prompt Enhancer</h2>
+      </div>
+      <p class="subtitle">Configure your enhancement settings.</p>
+    </div>
 
-      <form id="apiForm" class="form" autocomplete="off">
-        <label for="apiKey" class="label">API key</label>
-        <div class="field">
-          <input
-            id="apiKey"
-            name="apiKey"
-            class="input"
-            type="password"
-            inputmode="text"
-            spellcheck="false"
-            placeholder="gsk_••••••••••••••••••••"
-            aria-describedby="keyHelp"
-            required
-            minlength="20"
-            pattern="^gsk_[A-Za-z0-9-_]{16,}$"
-          />
-          <button type="button" class="icon-btn" id="toggleVis" aria-label="Show or hide API key">👁️</button>
-          <button type="button" class="icon-btn" id="copyKey" aria-label="Copy API key">📋</button>
-        </div>
-        <small id="keyHelp" class="hint">Starts with gsk_, then letters/numbers. </small>
+    <form id="apiForm">
+      <label for="apiKey" class="label">Groq API Key</label>
+      <div class="field">
+        <input type="password" id="apiKey" class="input" placeholder="gsk_..." autocomplete="off">
+        <button type="button" class="icon-btn" id="toggleVis" title="Show/Hide">👁️</button>
+        <button type="button" class="icon-btn" id="copyKey" title="Copy">📋</button>
+      </div>
 
-        <div class="actions">
-          <button id="save" class="btn primary" type="submit">Save</button>
-          <button id="clear" class="btn ghost" type="button">Clear</button>
-        </div>
-      </form>
+      <label for="modelSelect" class="label">AI Model</label>
+      <div class="field-full">
+        <select id="modelSelect" class="input">
+          <option value="meta-llama/llama-4-scout-17b-16e-instruct">Llama 4 Scout 17B (Highest Token Limit)</option>
+          <option value="llama-3.3-70b-versatile">Llama 3.3 70B (Smartest)</option>
+          <option value="llama-3.1-8b-instant">Llama 3.1 8B (Fastest & Highest Daily Limit)</option>
+        </select>
+      </div>
 
-      <footer class="footer">
-        <span class="muted">Saved only in local storage. </span>
-      </footer>
-    </main>
+      <div class="actions">
+        <button type="submit" class="btn primary" id="save">Save Settings</button>
+        <button type="button" class="btn ghost" id="clear">Clear</button>
+      </div>
+    </form>
 
-    <!-- Toast container -->
-    <div id="toast" class="toast" role="status" aria-live="polite" aria-atomic="true"></div>
+    <div class="footer">
+      <small class="hint">Keyboard Shortcut: Ctrl+Shift+E</small>
+    </div>
+  </div>
 
-    <script src="popup.js"></script>
-  </body>
+  <div id="toast" class="toast">Settings saved.</div>
+  <script src="popup.js"></script>
+</body>
 </html>
